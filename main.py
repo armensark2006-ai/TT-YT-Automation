@@ -76,7 +76,11 @@ def upload_to_youtube(youtube, video_path, title, description):
             "categoryId": "22"
         },
         "status": {
+<<<<<<< HEAD
             "privacyStatus": "public"  # Keeps it private for safety review
+=======
+            "privacyStatus": "private"  # Keeps it private for safety review
+>>>>>>> 0d5eac0 (Updated code to make videos private for review)
         }
     }
     media = MediaFileUpload(video_path, chunksize=-1, resumable=True)
