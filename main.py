@@ -5,7 +5,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
 # Configuration
-TIKTOK_USERNAME = "world.cup.farmers"  # Replace with the target username (without the @)
+TIKTOK_USERNAME = ""  # Replace with the target username (without the @)
 TRACKER_FILE = "uploaded_videos.txt"
 
 def get_already_uploaded():
