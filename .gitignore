@@ -1,0 +1,6 @@
+# API and credential secrets
+client_secrets.json
+client_secrets.json.json
+
+# Text logs / Tracking files
+uploaded_videos.txt
