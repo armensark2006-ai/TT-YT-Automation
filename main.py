@@ -22,7 +22,7 @@ def mark_as_uploaded(video_id):
 
 def get_all_tiktok_video_urls(username):
     """Scans a user's entire profile and gathers all video links."""
-    print(f"🕵️‍♂️ Scanning @{username}'s profile for videos...")
+    print(f" Scanning @{username}'s profile for videos...")
     profile_url = f"https://www.tiktok.com/@{username}"
     
     ydl_opts = {
@@ -42,9 +42,9 @@ def get_all_tiktok_video_urls(username):
                     if entry and entry.get('url'):
                         video_urls.append((entry['id'], entry['url']))
         except Exception as e:
-            print(f"⚠️ Could not pull profile entries (TikTok may be throttling): {e}")
+            print(f" Could not pull profile entries (TikTok may be throttling): {e}")
             
-    print(f"📊 Found {len(video_urls)} total videos on profile.")
+    print(f"Found {len(video_urls)} total videos on profile.")
     return video_urls
 
 def download_single_tiktok(tiktok_url):
@@ -76,17 +76,13 @@ def upload_to_youtube(youtube, video_path, title, description):
             "categoryId": "22"
         },
         "status": {
-<<<<<<< HEAD
-            "privacyStatus": "public"  # Keeps it private for safety review
-=======
             "privacyStatus": "private"  # Keeps it private for safety review
->>>>>>> 0d5eac0 (Updated code to make videos private for review)
         }
     }
     media = MediaFileUpload(video_path, chunksize=-1, resumable=True)
     request = youtube.videos().insert(part="snippet,status", body=body, media_body=media)
     response = request.execute()
-    print(f"🎉 YouTube Upload Complete! ID: {response['id']}")
+    print(f" YouTube Upload Complete! ID: {response['id']}")
 
 if __name__ == "__main__":
     uploaded_history = get_already_uploaded()
@@ -96,15 +92,15 @@ if __name__ == "__main__":
     new_videos = [(vid_id, url) for vid_id, url in all_videos if vid_id not in uploaded_history]
     
     if not new_videos:
-        print("😴 Everything is up to date. No new videos found.")
+        print(" Everything is up to date. No new videos found.")
     else:
-        print(f"🔥 Found {len(new_videos)} new video(s) to process!")
+        print(f"Found {len(new_videos)} new video(s) to process!")
         
         # Authenticate once before entering the loop
         youtube_service = get_youtube_service()
         
         for vid_id, url in new_videos:
-            print(f"\n🎬 Processing video ID: {vid_id}")
+            print(f"\n Processing video ID: {vid_id}")
             try:
                 video_file, title, description = download_single_tiktok(url)
                 upload_to_youtube(youtube_service, video_file, title, description)
@@ -113,9 +109,9 @@ if __name__ == "__main__":
                 if os.path.exists(video_file):
                     os.remove(video_file)
                 mark_as_uploaded(vid_id)
-                print(f"✅ Successfully completed and logged video {vid_id}")
+                print(f" Successfully completed and logged video {vid_id}")
                 
             except Exception as e:
-                print(f"❌ Failed processing video {vid_id}: {e}")
+                print(f"Failed processing video {vid_id}: {e}")
                 if os.path.exists('temp_download.mp4'):
                     os.remove('temp_download.mp4')
